@@ -8,7 +8,9 @@ const HUDFrame = ({
   badge = "SYS_OK",
   borderColor = "orange", // orange, lime, emerald
   className = "",
-  cornerText = "LAT-34.9N"
+  cornerText = "LAT-34.9N",
+  showHeader = true,
+  showFooter = true
 }) => {
   const borderClasses = {
     orange: "border-orange-neon/20 hover:border-orange-neon/40 text-orange-neon",
@@ -47,23 +49,25 @@ const HUDFrame = ({
       className={`relative p-5 bg-cyber-bg/90 backdrop-blur-md ${selectedHUD} ${className}`}
     >
       {/* Top Header Row */}
-      <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-2 select-none">
-        <div>
-          <span className="text-[10px] uppercase tracking-[0.25em] text-metallic block font-mono">
-            {subtitle || "CORE MODULE"}
-          </span>
-          <h3 className="font-orbitron font-bold text-sm tracking-widest text-ivory uppercase flex items-center gap-2">
-            <span className={`inline-block w-1.5 h-1.5 rounded-full pulse-led ${selectedLed}`} />
-            {title}
-          </h3>
+      {showHeader && (
+        <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-2 select-none">
+          <div>
+            <span className="text-[10px] uppercase tracking-[0.25em] text-metallic block font-mono">
+              {subtitle || "CORE MODULE"}
+            </span>
+            <h3 className="font-orbitron font-bold text-sm tracking-widest text-ivory uppercase flex items-center gap-2">
+              <span className={`inline-block w-1.5 h-1.5 rounded-full pulse-led ${selectedLed}`} />
+              {title}
+            </h3>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-[9px] font-mono text-metallic">{cornerText}</span>
+            <span className={`px-2 py-0.5 rounded text-[9px] font-mono border ${selectedBadge}`}>
+              {badge}
+            </span>
+          </div>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="text-[9px] font-mono text-metallic">{cornerText}</span>
-          <span className={`px-2 py-0.5 rounded text-[9px] font-mono border ${selectedBadge}`}>
-            {badge}
-          </span>
-        </div>
-      </div>
+      )}
 
       {/* Frame Elements (Holographic HUD Details) */}
       <div className="absolute top-0 right-12 w-8 h-[1px] bg-white/10" />
@@ -76,10 +80,12 @@ const HUDFrame = ({
       </div>
 
       {/* Bottom Footer Info */}
-      <div className="mt-4 flex justify-between items-center text-[8px] font-mono text-metallic border-t border-white/5 pt-2 select-none">
-        <span>SECURITY_LEVEL: 02</span>
-        <span>SYS_HZ: 60.00</span>
-      </div>
+      {showFooter && (
+        <div className="mt-4 flex justify-between items-center text-[8px] font-mono text-metallic border-t border-white/5 pt-2 select-none">
+          <span>SECURITY_LEVEL: 02</span>
+          <span>SYS_HZ: 60.00</span>
+        </div>
+      )}
     </motion.div>
   );
 };
